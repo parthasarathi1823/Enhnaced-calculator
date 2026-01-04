@@ -10,13 +10,19 @@ Option to view and clear the last result
 Handles invalid input and runtime errors
 
 Concepts Used:
-Functions
-Decorators
-Closures
-Exception handling
-Dictionaries
+1.Functions
+<br>
+2.Decorators
+<br>
+3.Closures
+<br>
+4.Exception handling
+<br>
+5.Dictionaries
 
 How to Run
 1.Clone the repository
+<br>
 2.Run the Python file:
       python calculator.py
+
