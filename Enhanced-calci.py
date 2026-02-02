@@ -1,9 +1,14 @@
+import logging
+
+logging.basicConfig(filename="main.log"
+                    ,level=logging.DEBUG,
+                    format="%(asctime)s %(message)s")
 def log_operations(func):
 
     def wrapper(*args,**kwargs):
-        print(f'\n[LOG] executing {func.__name__} with arguments {args}')
+        logging.info(f'\nexecuting {func.__name__} with arguments {args}')
         result=func(*args,**kwargs)
-        print(f'[LOG] Result: {result}\n')
+        logging.info(f'Result: {result}\n')
         return result
     
     return wrapper
@@ -51,6 +56,7 @@ def product(a,b):
 @log_operations
 def divide(a,b):
     if b==0:
+        logging.error(f"non-zero division operation")
         raise ValueError("cannot divide with zero")
     result=a/b
     set_last(result)
@@ -59,6 +65,7 @@ def divide(a,b):
 @log_operations
 def power(a,b):
     if b < 0:
+        logging.error(f"non-negative exponential operation")
         raise ValueError("Exponent must be non-negative")
     result=a**b
     set_last(result)
@@ -95,20 +102,26 @@ def main():
             if choice==7:
                 clear_last()
                 print("\nLast result cleared\n")
+                logging.info("Last result cleared")
             if choice==6:
                 print(f"\nLast result: {get_last()}\n")
+                logging.info("Last result accessed")
                 continue
 
             if choice not in operations :
                 print("Invalid choice! please try again ...")
                 continue
-
-            a=int(input("Enter first number: "))
-            b=int(input("Enter second number: "))
-
-            operations[choice](a,b)
+            try :
+                a=int(input("Enter first number: "))
+                b=int(input("Enter second number: "))
+            except ValueError :
+                logging.error(f"Input type error ")
+                print("Invalid input! please try again ...")
+            else:
+                operations[choice](a,b)
 
         except ValueError as e :
+            logging.error(e)
             print("Error: ",e,"\n")
                  
 
