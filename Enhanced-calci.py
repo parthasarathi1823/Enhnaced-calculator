@@ -8,6 +8,7 @@ def log_operations(func):
     def wrapper(*args,**kwargs):
         logging.info(f'\nexecuting {func.__name__} with arguments {args}')
         result=func(*args,**kwargs)
+        print(f'Result: {result}')
         logging.info(f'Result: {result}\n')
         return result
     
